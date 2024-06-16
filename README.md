@@ -130,7 +130,3 @@ uses and the authors of these two very good articles! [A Comprehensive Guide to 
 ## License
 
 [MIT](LICENSE.txt)
-
-## Contacting me
-
-📧 rodrigo@wisetap.com
