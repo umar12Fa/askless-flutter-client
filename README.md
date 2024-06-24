@@ -1,6 +1,6 @@
 # Askless for Flutter
 
-Build Flutter Apps with PostgreSQL, MySQL, or any database, stream data changes through websockets effortlessly, handle websocket authentication like a pro
+Build Flutter Apps with PostgreSQL, MySQL, or any database, stream data changes through websockets effortlessly, and handle websocket authentication like a pro
 
 🌟 If you want to build your Flutter App without Firebase and stream data from a database (like SQL) to the Flutter App,
 Askless will save you a lot of time!
