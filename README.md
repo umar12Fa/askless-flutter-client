@@ -1,6 +1,6 @@
 # Askless for Flutter
 
-Build Flutter Apps with PostgreSQL, MySQL, or any database, stream data changes through websockets effortlessly, handle websocket authentication like a pro and elevate your Flutter Chat App with video and audio calls!
+Build Flutter Apps with PostgreSQL, MySQL, or any database, stream data changes through websockets effortlessly, handle websocket authentication like a pro
 
 🌟 If you want to build your Flutter App without Firebase and stream data from a database (like SQL) to the Flutter App,
 Askless will save you a lot of time!
@@ -10,19 +10,13 @@ This is the Flutter side,
 
 ## Built with Askless
 
-Check the example of a [Flutter Chat App with PostgreSQL / MySQL databases and Node.js](https://github.com/RodrigoBertotti/flutter_chat_app_with_nodejs). Supports video and audio calls.
+Check the example of a [Flutter Chat App with PostgreSQL / MySQL databases and Node.js](https://github.com/RodrigoBertotti/flutter_chat_app_with_nodejs).
 
 https://github.com/RodrigoBertotti/flutter_chat_app_with_nodejs/assets/15431956/42428123-76ab-4c5c-8ba1-29321d11b74b
 
 <sup> 🔊 The video above contains audio, click on the right side to turn it on</sup>
 
 ## Why Askless?
-
-### :video_camera: Add Video and Audio calls to elevate your Flutter Chat App
-Easily implement WebRTC live calls in your App, no third-party services are required *
-
-<sup>* Some users may be [behind symmetric NAT](https://stackoverflow.com/a/35862243/4508758), so to avoid problems in this scenario
-add your own or third-party TURN server, please check the [documentation](documentation.md#video-and-audio-calls) for more info </sup>
 
 ### :muscle: **Stream data from PostgreSQL, MySQL or other database** to your Flutter App through websockets
 
@@ -61,8 +55,7 @@ simply add a double-check icon in your chat app once the message is delivered
 *  <sup>Level:</sup> <sup>:red_circle: :white_circle: :white_circle: :white_circle: :white_circle:</sup> [Flutter Random Numbers Example](example/random_numbers): Random numbers are generated on the server.
 *  <sup>Level:</sup> <sup>:red_circle: :red_circle: :white_circle: :white_circle: :white_circle:</sup> [Flutter Simple Chat Example](example/simple_chat): Simple chat between the colors blue and green.
 *  <sup>Level:</sup> <sup>:red_circle: :red_circle: :red_circle: :white_circle: :white_circle:</sup> [Flutter Catalog Example](example/catalog): Users adding and removing products from a catalog.
-*  <sup>Level:</sup> <sup>:red_circle: :red_circle: :red_circle: :red_circle: :red_circle:</sup> [Flutter Chat App with MySQL or PostgreSQL + video and audio calls](https://github.com/RodrigoBertotti/flutter_chat_app_with_nodejs): A Flutter Chat App with MySQL, WebSockets, and Node.js,
-   supports live video and audio calls streaming with WebRTC in Flutter.
+*  <sup>Level:</sup> <sup>:red_circle: :red_circle: :red_circle: :red_circle: :red_circle:</sup> [Flutter Chat App with MySQL or PostgreSQL](https://github.com/RodrigoBertotti/flutter_chat_app_with_nodejs): A Flutter Chat App with MySQL, WebSockets, and Node.js
 
 ## Getting Started
 
@@ -75,9 +68,9 @@ follow the server instructions in the section "Getting Started"
 **2 -** (Optional) To use an unencrypted connection in a **test environment** such as this example
 (`ws://` connection instead of `wss://`) [follow these instructions](https://flutter.dev/docs/release/breaking-changes/network-policy-ios-android). **Do not apply this on a production environment.**
 
-**3 -** (Optional) If you want to add video and audio calls for your Flutter App, [follow these instructions to set it up](documentation.md#video-and-audio-calls)
+<!-- **3 -** (Optional) If you want to add video and audio calls for your Flutter App, [follow these instructions to set it up](documentation.md#video-and-audio-calls) -->
 
-**4 -** Install
+**3 -** Install
 
 pubspec.yaml:
 
@@ -88,16 +81,16 @@ pubspec.yaml:
       # Add this line:
       askless: ^3.1.0
 
-**5 -** Import the package
+**4 -** Import the package
 
     import 'package:askless/askless.dart';
 
-**6 -** Initialize
+**5 -** Initialize
 informing the server URL with port (default: 3000).
 You can also access the `myAsklessServer.localUrl` attribute on your server-side in node.js
 to discover what the local URL of your server is.
 
-**7 -** Start Askless with `AsklessClient.instance.start()`
+**6 -** Start Askless with `AsklessClient.instance.start()`
     
 Example:
 
@@ -106,7 +99,7 @@ Example:
       runApp(MyApp());
     }    
 
-**8 -** Here we go! Now you can start using building your Flutter App with Askless,
+**7 -** Here we go! Now you can start using building your Flutter App with Askless,
 check the **[documentation](documentation.md)** and **[examples](#Examples)**!
 
 ## Issues
