@@ -130,7 +130,7 @@ class CallService<USER_ID> {
         logger (">> 2 - Setting remote description from answer! ${event["sdp"]["type"]} and ${event["sdp"]["sdp"]}");
 
         // call accepted..
-        await rtcPeerConnection.setRemoteDescription(
+        await rtcPeerConnection!.setRemoteDescription(
             RTCSessionDescription(
                 event["sdp"]["sdp"],
                 event["sdp"]["type"]
@@ -168,12 +168,12 @@ class CallService<USER_ID> {
           doDisposeCallback(error: 'disposing...');
           return;
         }
-        final sdpOffer = await rtcPeerConnection.createOffer({'offerToReceiveVideo': 1, 'offerToReceiveAudio': 1});
-        await rtcPeerConnection.setLocalDescription(sdpOffer);
+        final sdpOffer = await rtcPeerConnection!.createOffer({'offerToReceiveVideo': 1, 'offerToReceiveAudio': 1});
+        await rtcPeerConnection!.setLocalDescription(sdpOffer);
 
         logger(">> 1 - SDP OFFER GENERATED AND SET LOCAL DESCRIPTION LOCALLY sdpOffer");
 
-        rtcPeerConnection.onIceCandidate = (RTCIceCandidate candidate) {
+        rtcPeerConnection!.onIceCandidate = (RTCIceCandidate candidate) {
           logger("rtcPeerConnection -> onIceCandidate #1");
           rtcIceCandidateList.add(candidate);
           logger(json.encode({

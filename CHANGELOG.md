@@ -1,3 +1,6 @@
+# 3.1.1
+- Bug fixes
+
 # 3.1.0
 - Dependencies have been updated
 
