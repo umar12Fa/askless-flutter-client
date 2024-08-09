@@ -64,7 +64,14 @@ class ConnectionService {
     // }
   }
 
+  DateTime _lastTimeConnectWasCalled = DateTime(0);
   Future<void> _connect() async {
+    if (DateTime.now().millisecondsSinceEpoch - _lastTimeConnectWasCalled.millisecondsSinceEpoch <= 3000) {
+      logger("connect IGNORED, because it was called twice in a short time", level: Level.debug);
+      return;
+    }
+    _lastTimeConnectWasCalled = DateTime.now();
+
     //TODO???: if the credentials are the same and it is already connected, return ConfigureConnectionAsklessResponse instantaneously
     logger("connecting...", level: Level.debug);
 

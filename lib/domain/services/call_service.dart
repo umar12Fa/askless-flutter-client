@@ -10,11 +10,11 @@ import 'authenticate_service.dart';
 
 class CallService<USER_ID> {
   USER_ID? remoteUserId;
-  late MediaStream localStream;
+  MediaStream? localStream;
   late Map<String, dynamic> additionalData;
   late final Future<WebRTCParams> getWebRTCParams;
   final List<void Function(bool)> onRemoteUserConnectionChangeListeners = [];
-  late RTCPeerConnection rtcPeerConnection;
+  RTCPeerConnection? rtcPeerConnection;
   bool disposed = false;
   final List<void Function()> onCallCloses = [];
   final List<void Function()> disposeList = [];
@@ -85,6 +85,9 @@ class CallService<USER_ID> {
       resultCompleterForAcceptingCall!.complete(AcceptingCallResult(liveCall: null, error: "Interrupted"));
     }
 
+
+    rtcPeerConnection?.close();
+    localStream?.dispose();
     receivingCall?.dispose();
     requestCallInstance?.dispose();
     liveCall?.dispose();
@@ -221,7 +224,7 @@ class CallService<USER_ID> {
   }
 
   closeCallAndNotify() {
-    print("closeCallAndNotify dispose (!2)");
+    logger("closeCallAndNotify dispose (!2)");
     AsklessClient.instance.create(
         route: "askless-internal/call/close",
         body: {
@@ -229,7 +232,7 @@ class CallService<USER_ID> {
           "callClosed": true,
         }
     ).then((res) {
-      print("askless-internal/call/close response: "+res.success.toString() + ' ' + (res.error?.code ?? '') + ' ' + (res.error?.description ?? ''));
+      logger("askless-internal/call/close response: "+res.success.toString() + ' ' + (res.error?.code ?? '') + ' ' + (res.error?.description ?? ''));
     });
     doDisposeCallback();
   }
@@ -242,9 +245,9 @@ class CallService<USER_ID> {
         this.rtcPeerConnection = rtcPeerConnection;
         addToOnDisposeList(() => rtcPeerConnection.dispose());
 
-        localStream.getTracks().forEach((track) {
+        localStream?.getTracks().forEach((track) {
           print ("ADDING TRACKS!!");
-          rtcPeerConnection.addTrack(track, localStream);
+          rtcPeerConnection.addTrack(track, localStream!);
         });
 
         rtcPeerConnection.onIceConnectionState = (e) {
@@ -258,7 +261,7 @@ class CallService<USER_ID> {
           assert(prev == null || prev == remoteStream);
           prev = remoteStream;
 
-          // assert(!localStream.getTracks().contains(track), "onAddTrack(..) is calling with the local track");
+          // assert(!localStream?.getTracks().contains(track), "onAddTrack(..) is calling with the local track");
 
           if (resultCompleterForAcceptingCall?.isCompleted == true || resultCompleterForRequestingCall?.isCompleted == true) {
             logger("already completed");
@@ -296,8 +299,6 @@ class CallService<USER_ID> {
         };
 
         impl();
-
-
       }, onError: (err) {
         final errorMessage = "createPeerConnection failed: \"$err\"";
         logger(errorMessage, level: Level.error);
@@ -338,7 +339,7 @@ class CallService<USER_ID> {
               bool added = false;
               for (final iceCandidate in List.from(event["iceCandidateList"])) {
                 added = true;
-                rtcPeerConnection.addCandidate(
+                rtcPeerConnection!.addCandidate(
                     RTCIceCandidate(
                         iceCandidate["candidate"],
                         iceCandidate["id"],
@@ -364,14 +365,14 @@ class CallService<USER_ID> {
             assert(callRequest["sdp"]["type"] == "offer");
 
             logger(">> setRemoteDescription from offer");
-            await rtcPeerConnection.setRemoteDescription(
+            await rtcPeerConnection!.setRemoteDescription(
                 RTCSessionDescription(
                     callRequest["sdp"]["sdp"],
                     callRequest["sdp"]["type"]
                 )
             );
-            final sdpAnswer = await rtcPeerConnection.createAnswer({'offerToReceiveVideo': 1, 'offerToReceiveAudio': 1});
-            await rtcPeerConnection.setLocalDescription(sdpAnswer);
+            final sdpAnswer = await rtcPeerConnection!.createAnswer({'offerToReceiveVideo': 1, 'offerToReceiveAudio': 1});
+            await rtcPeerConnection!.setLocalDescription(sdpAnswer);
 
             AsklessClient.instance.create(
                 route: "askless-internal/call/response",
@@ -408,6 +409,7 @@ class CallService<USER_ID> {
                 }
                 throw "Call already answered";
               }
+              logger("> Accepting call.. (1)", level: Level.debug);
               callAnswered = true;
               return (acceptedCallAnswer = await acceptCall(localStream: localStream, additionalData: additionalData ?? {},));
             },
@@ -417,6 +419,7 @@ class CallService<USER_ID> {
                 return;
               }
               callAnswered = true;
+              logger("> Rejecting call.. (1)", level: Level.debug);
               AsklessClient.instance.create(
                   route: "askless-internal/call/response",
                   body: {
