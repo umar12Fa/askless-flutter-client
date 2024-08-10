@@ -118,7 +118,7 @@ Feel free to open an issue about:
 Thank you for using Askless!
 
 Thanks also ALL the developers who developed the libraries that Askless
-uses and the authors of these two very good articles! [A Comprehensive Guide to Flutter WebRTC](https://www.100ms.live/blog/flutter-webrtc) and [Flutter-WebRTC: A Complete Guide](https://www.videosdk.live/blog/flutter-webrtc).
+rely on and the authors of these two very good articles! [A Comprehensive Guide to Flutter WebRTC](https://www.100ms.live/blog/flutter-webrtc) and [Flutter-WebRTC: A Complete Guide](https://www.videosdk.live/blog/flutter-webrtc).
 
 ## License
 
